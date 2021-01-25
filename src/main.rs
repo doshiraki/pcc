@@ -210,10 +210,10 @@ where
 }
 
 fn regex<'a>(pattern: &'a str, group: usize) -> impl Parser<'a> {
-    move |source: &'a str, position: i32| -> Result<Success, Failure> {
-        let src = &source[position as usize..source.len()];
+    let regex = Regex::new(&ptn).unwrap();
+    let src = &source[position as usize..source.len()];
+move |source: &'a str, position: i32| -> Result<Success, Failure> {
         let ptn = "^".to_string() + pattern;
-        let regex = Regex::new(&ptn).unwrap();
         let captures = regex.captures(src);
         match captures {
             Some(caps) => {
